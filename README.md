@@ -41,7 +41,7 @@ The default success handle function (successHndl) expects a json object. The HTM
 ```javascript
 for (var key in json_data) {
      var id = document.getElementById(key);
-     id.innerHTML = data[key];
+     id.innerHTML = json_data[key];
 }
 ```
 
