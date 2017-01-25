@@ -1,11 +1,13 @@
 // Polling Constructor Function
 
-function AjaxPollData()
+function AjaxPollData(url,interval)
 {
+    // These should be overwritten before calling.
+    this.url_src = url;
+    this.interval = interval;
+
     this.failed = 0;
     this.success_count = 0;
-    this.url_src = "/cgi-bin/ajax.pl";
-    this.interval = 2000;
 
     this.init = function()
     {
@@ -22,16 +24,15 @@ function AjaxPollData()
            context    : self,
            success    : self.successHndl,
            error      : self.errorHndl,
-       });
+       }).done(self.init);
     };
 
     // --------------
     this.successHndl = function( data )
     {
-        console.log(this);
+        //console.log(this);
         for (var key in data)
         {
-            console.log('obj.' + key, '=', data[key]);
             var id = document.getElementById(key);
             if (id)
             {
@@ -39,13 +40,11 @@ function AjaxPollData()
             }
             else
             {
-                console.log(data);
-                console.log("element not found " + key);
+                console.log("element id not found " + key);
             }
         }
 
-        console.log("Success!!!:" + data);
-        this.init();
+        //console.log("Success!!!:" + data);
         ++this.success_count;
     };
 

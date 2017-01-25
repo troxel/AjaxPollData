@@ -1,0 +1,41 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>The HTML5 Herald</title>
+  <meta name="description" content="The HTML5 Herald">
+  <meta name="author" content="SitePoint">
+
+  <!-- <link rel="stylesheet" href="css/styles.css?v=1.0"> -->
+
+  <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+  <![endif]-->
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+</head>
+
+<body>
+  <script src="js/AjaxPollData.js"></script>
+  <script>
+
+  var poller = new AjaxPollData('/cgi-bin/ajax_test.pl',3000);
+  poller.init();
+
+  // Example with over ridden succcess handler
+  poll2console = new AjaxPollData('/cgi-bin/ajax_test.pl',10000)
+  mySuccess = function (data){
+     console.log(data);
+     console.log("Success count: " + this.success_count);
+     this.success_count++;
+  };
+  poll2console.successHndl = mySuccess;
+  poll2console.init();
+
+  </script>
+
+  Time: <span id="time_curr"></span>
+
+</body>
+</html>
